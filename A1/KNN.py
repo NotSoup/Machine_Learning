@@ -3,19 +3,21 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from ucimlrepo import fetch_ucirepo 
+import pandas as pd
 
-# fetch dataset 
-heart_disease = fetch_ucirepo(id=45) 
+dt = pd.read_csv("/home/apetrolino3/Desktop/GaTech/Machine_Learning/data/student_dropout_success.csv", sep=";")
+X = dt.drop(["Target"], axis=1)
+y = dt["Target"]
 
-# data (as pandas dataframes) 
-X = heart_disease.data.features 
-y = heart_disease.data.targets 
-
-# metadata 
-print(heart_disease.metadata) 
-
-# variable information 
-print(heart_disease.variables) 
+# # fetch dataset 
+# heart_disease = fetch_ucirepo(id=45) 
+# # data (as pandas dataframes) 
+# X = heart_disease.data.features 
+# y = heart_disease.data.targets 
+# # metadata 
+# print(heart_disease.metadata) 
+# # variable information 
+# print(heart_disease.variables) 
 
 # Split the dataset into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)

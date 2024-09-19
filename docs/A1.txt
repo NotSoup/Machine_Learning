@@ -1,0 +1,14 @@
+			Let's find some mf'ing datasets
+
+Need 2 datasets
+
+Algorithms
+	N.N. (any size, layer, activation function, etc)
+	SVM (2 different kernels)
+	KNN (adjust values of k and compare)
+	EXTRA CREDIT
+		Boosting Decision Trees w/ some form of pruning & explain
+		how weak learners effect bias + variance
+		
+Now >>>> try to run ANY dataset through your scripts
+	THEN start "looking at datasets"

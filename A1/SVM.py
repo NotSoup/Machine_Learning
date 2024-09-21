@@ -1,8 +1,8 @@
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split, cross_val_score, learning_curve
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 def SVM(X, y):
 
@@ -35,5 +35,23 @@ def SVM(X, y):
     # Evaluate the accuracy of the model
     accuracy = accuracy_score(y_test, y_pred)
     print(f"SVM Test Accuracy: {accuracy:.2f}\n")
+
+    # Learning Curve: Model performance with varying training set sizes
+    train_sizes, train_scores, valid_scores = learning_curve(svm, X_train, y_train, cv=4, scoring='accuracy', n_jobs=-1)
+
+    # Compute average training and validation scores across the n-folds
+    train_mean = np.mean(train_scores, axis=1)
+    valid_mean = np.mean(valid_scores, axis=1)
+
+    # Plotting the Learning Curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(train_sizes, train_mean, label='Training Accuracy', color='blue', marker='o')
+    plt.plot(train_sizes, valid_mean, label='Validation Accuracy', color='red', marker='o')
+    plt.title('Learning Curve')
+    plt.xlabel('Training Set Size')
+    plt.ylabel('Accuracy')
+    plt.legend(loc='best')
+    plt.grid()
+    plt.show()
 
     return accuracy

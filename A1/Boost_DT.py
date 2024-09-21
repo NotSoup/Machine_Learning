@@ -1,7 +1,8 @@
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split, cross_val_score, learning_curve
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def BoostDT(X, y):
@@ -36,15 +37,27 @@ def BoostDT(X, y):
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Boost-DR Test Accuracy: {accuracy:.2f}\n")
 
-    # # Print classification report
-    # print("\nClassification Report:")
-    # print(classification_report(y_test, y_pred))
+    # Learning Curve: Model performance with varying training set sizes
+    train_sizes, train_scores, valid_scores = learning_curve(gb_clf, X_train, y_train, cv=4, scoring='accuracy', n_jobs=-1)
+
+    # Compute average training and validation scores across the n-folds
+    train_mean = np.mean(train_scores, axis=1)
+    valid_mean = np.mean(valid_scores, axis=1)
+
+    # Plotting the Learning Curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(train_sizes, train_mean, label='Training Accuracy', color='blue', marker='o')
+    plt.plot(train_sizes, valid_mean, label='Validation Accuracy', color='red', marker='o')
+    plt.title('Learning Curve')
+    plt.xlabel('Training Set Size')
+    plt.ylabel('Accuracy')
+    plt.legend(loc='best')
+    plt.grid()
+    plt.show()
 
     return accuracy
 
     # # Optional: Visualize the importance of each feature
-    # import matplotlib.pyplot as plt
-
     # feature_importances = gb_clf.feature_importances_
     # indices = np.argsort(feature_importances)[::-1]
 

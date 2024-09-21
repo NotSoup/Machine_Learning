@@ -16,11 +16,11 @@ def KNN(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=90210)
 
     # Create the k-NN classifier
-    k = 5  # Number of neighbors to use
+    k = 1  # Number of neighbors to use
     knn = KNeighborsClassifier(n_neighbors=k)
 
     # Perform cross-validation (5-fold)
-    cv_scores = cross_val_score(knn, X_train, y_train, cv=4)
+    cv_scores = cross_val_score(knn, X_train, y_train, cv=3)
 
     # # Print the cross-validation scores for each fold
     # print(f"Cross-Validation Scores: {cv_scores}")
@@ -38,23 +38,23 @@ def KNN(X, y):
     accuracy = accuracy_score(y_test, y_pred)
     print(f"KNN Test Accuracy: {accuracy:.2f}\n")
 
-    # # Learning Curve: Model performance with varying training set sizes
-    # train_sizes, train_scores, valid_scores = learning_curve(knn, X_train, y_train, cv=5, scoring='accuracy', n_jobs=-1)
+    # Learning Curve: Model performance with varying training set sizes
+    train_sizes, train_scores, valid_scores = learning_curve(knn, X_train, y_train, cv=4, scoring='accuracy', n_jobs=-1)
 
-    # # Compute average training and validation scores across the 5-folds
-    # train_mean = np.mean(train_scores, axis=1)
-    # valid_mean = np.mean(valid_scores, axis=1)
+    # Compute average training and validation scores across the n-folds
+    train_mean = np.mean(train_scores, axis=1)
+    valid_mean = np.mean(valid_scores, axis=1)
 
-    # # Plotting the Learning Curve
-    # plt.figure(figsize=(8, 6))
-    # plt.plot(train_sizes, train_mean, label='Training Accuracy', color='blue')
-    # plt.plot(train_sizes, valid_mean, label='Validation Accuracy', color='red')
-    # plt.title('Learning Curve')
-    # plt.xlabel('Training Set Size')
-    # plt.ylabel('Accuracy')
-    # plt.legend(loc='best')
-    # plt.grid()
-    # plt.show()
+    # Plotting the Learning Curve
+    plt.figure(figsize=(8, 6))
+    plt.plot(train_sizes, train_mean, label='Training Accuracy', color='blue', marker='o')
+    plt.plot(train_sizes, valid_mean, label='Validation Accuracy', color='red', marker='o')
+    plt.title('Learning Curve')
+    plt.xlabel('Training Set Size')
+    plt.ylabel('Accuracy')
+    plt.legend(loc='best')
+    plt.grid()
+    plt.show()
 
     # # Validation Curve: Model performance with varying number of neighbors
     # param_range = np.arange(1, 21)  # Trying k values from 1 to 20

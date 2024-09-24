@@ -1,17 +1,30 @@
 			Let's find some mf'ing datasets
 
+Need 2 datasets
+
+Algorithms
+	N.N. (any size, layer, activation function, etc)
+	SVM (2 different kernels)
+	KNN (adjust values of k and compare)
 	EXTRA CREDIT
 		Boosting Decision Trees w/ some form of pruning & explain
 		how weak learners effect bias + variance
+		
+Now >>>> try to run ANY dataset through your scripts
+	THEN start "looking at datasets"
+
+From Discord:
+
+K-fold loss (ask ChatGPT)
+
+Graphs
+	1 Validation Curve x3
+	1 Learning Curve x3
 	
-- Search LLM in #A1 discord for threads about asking ChatGPT for analysis
+	1 loss curve w/ iterations|epochs x1 (NN)
+	1 learning curve x1 (NN)
+		I picked varying widths of one layer, 2 layers 
+		setup with less-more, more-less, same-same, 
+		and one 3 layer setup
 
-- Look at Biases of each algo (Inductive, etc)
-
-- Hypotheses can be about algo OR data, add "why" at end
 	
-- Test set is sacred: tune on train set only. Do NOT SHOW tuning through test set results. NOT EVEN VALIDATION CURVE
-
-- Explain performance of datasets, even if it's bad ~after~ tuning
-
-- Different performance metrics: Accuracy on set that has 90% one class, a 90% accuracy means very little

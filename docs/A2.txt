@@ -1,0 +1,17 @@
+* Use discrete-value spaces (MIMIC cant be ran on continuous)
+* MAXIMIZE fitness (do not MINIMIZE cost)
+Problem 1: highlight advantages of simulated annealing
+Problem 2: discuss genetic algorithm (apply MIMIC *only on this problem* for EXTRA CREDIT and compare to genetic algo)
+Problem 3: use all 3 algos to find weights for NN
+
+Possible problems:
+    - 4 peaks
+    - k color
+    - can steal anything from MLRose as long as 1 highlights GenAlg and the other SimAnn
+
+Possible plots:
+    - Fitness per Iteration
+    - Iteration per time (compare # of iterations and speed of iterations)
+    - Convergence
+
+Make N random seeds to reuse and average (plot variance too)

@@ -1,8 +1,8 @@
 * Use discrete-value spaces (MIMIC cant be ran on continuous)
 * MAXIMIZE fitness (do not MINIMIZE cost)
-Problem 1: highlight advantages of simulated annealing
-Problem 2: discuss genetic algorithm (apply MIMIC *only on this problem* for EXTRA CREDIT and compare to genetic algo)
-Problem 3: use all 3 algos to find weights for NN
+Problem 1: (multiple seeds w/ variance) highlight advantages of simulated annealing
+Problem 2: (multiple seeds w/ variance) discuss genetic algorithm (apply MIMIC *only on this problem* for EXTRA CREDIT and compare to genetic algo)
+Problem 3: (multiple seeds w/ variance) use all 3 algos to find weights for NN
 
 Possible problems:
     - 4 peaks

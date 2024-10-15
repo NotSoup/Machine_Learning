@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 #  average curves across seeds
 
 seed = 90210
+seeds = [42, 69, 408, 420, 300, 12345, 54321, 90210, 101010, 343434]
 
 # 1) Define fitness function
 fitness = mlrose.FourPeaks(t_pct=0.1)
@@ -21,8 +22,8 @@ fitness = mlrose.FourPeaks(t_pct=0.1)
 rhc_fitness_scores = []
 sa_fitness_scores = []
 ga_fitness_scores = []
-
 problem_range = range(2, 10)
+
 
 for size in problem_range:
 

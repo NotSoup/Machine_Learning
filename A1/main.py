@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 
 
 start = timer()
-data_dir = "..\data\\"
+data_dir = "../data/"
 
 ######################## OBESITY DATASET ##########################
 dataset_name = "ObesityDataSet_raw_and_data_sinthetic"
@@ -69,7 +69,7 @@ fig, ax = plt.subplots(2, 4, figsize=(23,14))
 KNN(X_train, X_test, y_train, y_test, ax, metric)
 SVM(X_train, X_test, y_train, y_test, ax, metric)
 NN(X_train, X_test, y_train, y_test, ax, metric)
-# BoostDT(X_train, X_test, y_train, y_test, ax, metric)
+BoostDT(X_train, X_test, y_train, y_test, ax, metric)
 
 print(f"Runtime: {timer() - start}")
 # plt.savefig(f'./plots/full_suite_{dataset_name}.png', dpi=300)

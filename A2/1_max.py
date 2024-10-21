@@ -8,11 +8,7 @@ from timeit import default_timer as timer
 # seeds = [42, 69, 408, 420, 300, 12345, 54321, 90210, 101010, 343434]
 seeds = [90210, 101010, 343434]
 
-# 1) Define fitness function
-fitness = mlrose.FourPeaks(t_pct=0.1)
-
-# edges = [(0, 1), (0, 2), (0, 4), (1, 3), (2, 0), (2, 3), (3, 4)]
-# fitness = mlrose.MaxKColor(edges)
+fitness = mlrose.OneMax()
 
 # Graph with x-axis as 'Problem Size'
 rhc_df = pd.DataFrame()
@@ -146,13 +142,13 @@ plt.fill_between(problem_range, sa_seed_avg-sa_std, sa_seed_avg+sa_std, alpha=0.
 # plt.plot(problem_range, ga_fitness_scores, label="GA")
 plt.plot(problem_range, ga_seed_avg, label="GA")
 plt.fill_between(problem_range, ga_seed_avg-ga_std, ga_seed_avg+ga_std, alpha=0.3)
-plt.title("Four-Peaks: Fitness vs Problem Size")
+plt.title("1Max: Fitness vs Problem Size")
 plt.xlabel('Problem Size')
 plt.ylabel('Fitness')
 plt.legend(loc='best')
 plt.grid()
 # plt.show()
-plt.savefig("fitness-4-peaks-init.png")
+plt.savefig("fitness-1Max-init.png")
 
 # Score
 # print(fitness.evaluate(best_state)) # same as print(best_fitness)  ???????

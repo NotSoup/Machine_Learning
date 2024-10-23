@@ -6,7 +6,7 @@ from timeit import default_timer as timer
 
 
 # seeds = [42, 69, 408, 420, 300, 12345, 54321, 90210, 101010, 343434]
-seeds = [90210, 101010, 343434]
+seeds = [90210]
 
 # 1) Define fitness function
 fitness = mlrose.FourPeaks(t_pct=0.1)
@@ -67,21 +67,21 @@ for seed in seeds:
             random_state = seed,            # Random seed here
         )
 
-        # (Genetic Algorithm)
-        ga_best_state, ga_best_fitness, ga_curve = mlrose.genetic_alg(
-            problem,                        # Made in step 2
-            pop_size = 200,                 #
-            pop_breed_percent = 0.75,       #
-            elite_dreg_ratio = 0.99,        #
-            minimum_elites = 0,             #
-            minimum_dregs = 0,              #
-            mutation_prob = 0.1,            #
-            max_attempts = 200,              # on the tin
-            max_iters = np.inf,             # on the tin
-                    # ?? No Init_State ?? 
-            curve=True,                     # Makes 3rd return into plottable curve
-            random_state = seed,            # Random seed here
-        )
+        # # (Genetic Algorithm)
+        # ga_best_state, ga_best_fitness, ga_curve = mlrose.genetic_alg(
+        #     problem,                        # Made in step 2
+        #     pop_size = 200,                 #
+        #     pop_breed_percent = 0.75,       #
+        #     elite_dreg_ratio = 0.99,        #
+        #     minimum_elites = 0,             #
+        #     minimum_dregs = 0,              #
+        #     mutation_prob = 0.1,            #
+        #     max_attempts = 200,              # on the tin
+        #     max_iters = np.inf,             # on the tin
+        #             # ?? No Init_State ?? 
+        #     curve=True,                     # Makes 3rd return into plottable curve
+        #     random_state = seed,            # Random seed here
+        # )
 
         # # (MIMIC Algorithm)
         # mc_best_state, mc_best_fitness, mc_curve = mlrose.mimic(
@@ -98,12 +98,12 @@ for seed in seeds:
 
         rhc_fitness_scores.append(rhc_best_fitness)
         sa_fitness_scores.append(sa_best_fitness)
-        ga_fitness_scores.append(ga_best_fitness)
+        # ga_fitness_scores.append(ga_best_fitness)
         # mc_fitness_scores.append(mc_best_fitness)
 
         rhc_fitness_scores.append(rhc_best_fitness)
         sa_fitness_scores.append(sa_best_fitness)
-        ga_fitness_scores.append(ga_best_fitness)
+        # ga_fitness_scores.append(ga_best_fitness)
         # mc_fitness_scores.append(mc_best_fitness)
 
     rhc_df = pd.concat((rhc_df, pd.DataFrame(rhc_fitness_scores)), axis=1)
@@ -144,8 +144,8 @@ plt.fill_between(problem_range, rhc_seed_avg-rhc_std, rhc_seed_avg+rhc_std, alph
 plt.plot(problem_range, sa_seed_avg, label="SA")
 plt.fill_between(problem_range, sa_seed_avg-sa_std, sa_seed_avg+sa_std, alpha=0.3)
 # plt.plot(problem_range, ga_fitness_scores, label="GA")
-plt.plot(problem_range, ga_seed_avg, label="GA")
-plt.fill_between(problem_range, ga_seed_avg-ga_std, ga_seed_avg+ga_std, alpha=0.3)
+# plt.plot(problem_range, ga_seed_avg, label="GA")
+# plt.fill_between(problem_range, ga_seed_avg-ga_std, ga_seed_avg+ga_std, alpha=0.3)
 plt.title("Four-Peaks: Fitness vs Problem Size")
 plt.xlabel('Problem Size')
 plt.ylabel('Fitness')

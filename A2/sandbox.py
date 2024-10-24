@@ -24,13 +24,13 @@ for seed in seeds:
     rhc_time = []
     rhc_iterations = []
 
-    for size in problem_range:      ### <<<<<<
+    for size in problem_range:              ### <<<<<<
 
         np.random.seed(seed)
         init_state = np.random.randint(2, size=128)
 
         problem = mlrose.DiscreteOpt(
-            length=128,             ### <<<<<<
+            length=problem_size,             ### <<<<<<
             fitness_fn=fitness,
             max_val=2
         )
@@ -40,7 +40,7 @@ for seed in seeds:
         rhc_best_state, rhc_best_fitness, rhc_curve = mlrose.random_hill_climb(
             problem,                        # Made in step 2
             max_attempts = 200,           # on the tin
-            max_iters = np.inf,             # on the tin
+            max_iters = 7,             # on the tin
             restarts=5,                     # on the tin
             init_state = init_state,        # made this above
             curve=True,                     # Makes 3rd return into plottable curve

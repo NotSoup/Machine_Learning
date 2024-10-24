@@ -151,8 +151,8 @@ plt.xlabel('Problem Size')
 plt.ylabel('Fitness')
 plt.legend(loc='best')
 plt.grid()
-# plt.show()
-plt.savefig("fitness-4-peaks-init.png")
+plt.show()
+# plt.savefig("fitness-4-peaks-init.png")
 
 # Score
 # print(fitness.evaluate(best_state)) # same as print(best_fitness)  ???????

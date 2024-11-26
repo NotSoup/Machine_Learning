@@ -9,7 +9,7 @@ import numpy as np
 from bettermdptools.algorithms.rl import RL
 import matrix_mdp
 import mdptoolbox.example
-
+from gymnasium.utils.env_checker import check_env
 
 
 # # make gym environment 
@@ -106,15 +106,28 @@ P, R = mdptoolbox.example.forest(S=num_states, p=probability_of_fire)
 
 
 s_0 = np.ones((num_states, )) / num_states
-rew = np.array(
-    [[[0,0,0],
-      [0,0,0],
-      [4,4,4]],
+# rew = np.array(
+#     [[[0,0,0],
+#       [0,0,0],
+#       [4,4,4]],
 
-     [[0,0,0],
-      [1,1,1],
-      [2,2,2]]]
-)
+#      [[0,0,0],
+#       [1,1,1],
+#       [2,2,2]]]
+# )
+r_temp= np.array([
+    [[0.0, 0],
+     [0.0 ,1],
+     [0.0 ,2]],
+
+    [[0.0, 0],
+    [0.0, 0],
+    [0.0, 0]],
+
+    [[0.0 , 0. ],
+    [0.0 , 0. ],
+    [4.0 , 0. ]]
+])
 p_env = np.array([[
         [0.1, 1],
         [0.1 ,1],
@@ -127,7 +140,8 @@ p_env = np.array([[
        [[0.0 , 0. ],
         [0.9 , 0. ],
         [0.9 , 0. ]]])
-env = gym.make('matrix_mdp/MatrixMDP-v0', p_0=s_0, p=p_env, r=rew, render_mode=None)
+
+env = gym.make('matrix_mdp/MatrixMDP-v0', p_0=s_0, p=p_env, r=r_temp, render_mode=None)
 
 mdp_dict = {}
 for s_1 in range(num_states):
@@ -144,7 +158,12 @@ for s_1 in range(num_states):
 # run VI
 V, V_track, pi = Planner(mdp_dict).value_iteration()
 
+# test policy
+test_scores = TestEnv.test_env(env=env, n_iters=100, render=False, pi=pi, user_input=False)
+# print(np.mean(test_scores))
 
+# # Q-learning
+Q, V, pi, Q_track, pi_track = RL(env).q_learning()
 
 # Plot setup
 forest_actions = {

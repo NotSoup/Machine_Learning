@@ -83,3 +83,7 @@ print(np.mean(test_scores))
 import mdptoolbox.example
 
 P, R = mdptoolbox.example.forest()
+
+import matrix_mdp
+
+env = gym.make('matrix_mdp/MatrixMDP-v0')

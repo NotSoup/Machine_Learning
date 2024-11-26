@@ -7,6 +7,8 @@ from bettermdptools.envs.cartpole_wrapper import CartpoleWrapper
 from bettermdptools.utils.test_env import TestEnv
 import numpy as np
 from bettermdptools.algorithms.rl import RL
+import matrix_mdp
+import mdptoolbox.example
 
 
 
@@ -58,32 +60,109 @@ from bettermdptools.algorithms.rl import RL
 ############################################################################################################
 
 
-base_env = gym.make('Blackjack-v1', render_mode=None)
-blackjack = BlackjackWrapper(base_env)
+# base_env = gym.make('Blackjack-v1', render_mode=None)
+# blackjack = BlackjackWrapper(base_env)
+
+# # run VI
+# V, V_track, pi = Planner(blackjack.P).value_iteration()
+
+# # test policy
+# test_scores = TestEnv.test_env(env=blackjack, n_iters=100, render=False, pi=pi, user_input=False)
+# print(np.mean(test_scores))
+
+# # Q-learning
+# Q, V, pi, Q_track, pi_track = RL(blackjack).q_learning()
+
+# #test policy
+# test_scores = TestEnv.test_env(env=blackjack, n_iters=100, render=False, pi=pi, user_input=False)
+# print(np.mean(test_scores))
+
+
+############################################################################################################
+############################################################################################################
+
+
+# P: 
+# a1   s1 |
+#      s2 |
+#      s3 | _   _   _
+#           s1' s2' s3'
+
+# a2   s1 |
+#      s2 |
+#      s3 | _   _   _
+#           s1' s2' s3'
+
+# R:
+#     s1 |
+#     s2 |
+#     s3 | _   _ 
+#         a1  a2
+
+num_states  = 3
+num_actions = 2
+probability_of_fire = 0.1
+P, R = mdptoolbox.example.forest(S=num_states, p=probability_of_fire)
+
+
+s_0 = np.ones((num_states, )) / num_states
+rew = np.array(
+    [[[0,0,0],
+      [0,0,0],
+      [4,4,4]],
+
+     [[0,0,0],
+      [1,1,1],
+      [2,2,2]]]
+)
+p_env = np.array([[
+        [0.1, 1],
+        [0.1 ,1],
+        [0.1 ,1]],
+
+       [[0.9, 0],
+        [0.0, 0],
+        [0.0, 0]],
+
+       [[0.0 , 0. ],
+        [0.9 , 0. ],
+        [0.9 , 0. ]]])
+env = gym.make('matrix_mdp/MatrixMDP-v0', p_0=s_0, p=p_env, r=rew, render_mode=None)
+
+mdp_dict = {}
+for s_1 in range(num_states):
+    action_dict = {}
+
+    for a in range(num_actions):
+        action_dict[a] = []
+
+        for s_2 in range(num_states):
+            action_dict[a].append((P[a][s_1][s_2], s_2, R[s_1][a], False))
+
+    mdp_dict[s_1] = action_dict
 
 # run VI
-V, V_track, pi = Planner(blackjack.P).value_iteration()
-
-# test policy
-test_scores = TestEnv.test_env(env=blackjack, n_iters=100, render=False, pi=pi, user_input=False)
-print(np.mean(test_scores))
-
-# Q-learning
-Q, V, pi, Q_track, pi_track = RL(blackjack).q_learning()
-
-#test policy
-test_scores = TestEnv.test_env(env=blackjack, n_iters=100, render=False, pi=pi, user_input=False)
-print(np.mean(test_scores))
+V, V_track, pi = Planner(mdp_dict).value_iteration()
 
 
-############################################################################################################
-############################################################################################################
 
+# Plot setup
+forest_actions = {
+    0: "Wait", 
+    1: "Cut", 
+}
+forest_map_size = (3, 1)
+val_max, policy_map = Plots.get_policy_map(pi, V, forest_actions, forest_map_size)
 
-import mdptoolbox.example
+Plots.plot_policy(
+    val_max    = val_max, 
+    directions = policy_map, 
+    map_size   = forest_map_size, 
+    title      = "Forest Mapped Policy"
+)
 
-P, R = mdptoolbox.example.forest()
-
-import matrix_mdp
-
-env = gym.make('matrix_mdp/MatrixMDP-v0')
+Plots.values_heat_map(
+    V, 
+    "Forest\nValue Iteration State Values", 
+    forest_map_size
+)
